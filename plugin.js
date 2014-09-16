@@ -45,7 +45,7 @@
 			$.merge(allSets, data['Expert']);
 			for (var i in allSets){
 				var re = new RegExp(allSets[i].name,"gi");
-				$("body:contains('"+allSets[i].name+"')").each(function(){
+				$("body *:not(.no-hs-tooltip):contains('"+allSets[i].name+"')").each(function(){
 				    var $el = $(this);				    
 				    $el.html( $el.html().replace(re, '<span class="hs-tooltip" style="text-decoration: underline">'+allSets[i].name+'<img src="cards/'+allSets[i].id+'.png" style="position: absolute; display: none"></span>') );
 				    $(".hs-tooltip").mouseover(function(){
