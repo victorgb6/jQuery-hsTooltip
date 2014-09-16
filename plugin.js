@@ -29,22 +29,37 @@
 			text         : 'Hello, World!',
 		}, options);*/
 		var allSets = {};
-		$.getJSON( "/AllSets.json", function( data ) {
+		var mouse = {x: 0, y: 0};
+		/*Getting the mouse position*/
+		document.addEventListener('mousemove', function(e){ 
+		    mouse.x = e.clientX || e.pageX; 
+		    mouse.y = e.clientY || e.pageY;
+		}, false);
+		/*Contains case-insensitive*/
+		$.expr[":"].contains = $.expr.createPseudo(function(arg) {
+		    return function( elem ) {
+		        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+		    };
+		});
+		/*cards/'+allSets[i].id+'.png*//*agentIconMale.png*/
+		$.getJSON( "/jQuery-hsTooltip/jQuery-hsTooltip/AllSets.json", function( data ) {
 			allSets = data['Basic'];
 			$.merge(allSets, data['Curse of Naxxramas']);
 			$.merge(allSets, data['Expert']);
 			for (var i in allSets){
-				$("body *").each(function()
-				{
-				    var $el = $(this);
-				    var re = new RegExp(allSets[i].name,"gi");
-				    $el.html( $el.html().replace(re, '<span style="text-decoration: underline">'+allSets[i].name+'</span>') );
-				});
-				
-			}
-			
-		});
-		
+				var re = new RegExp(allSets[i].name,"gi");
+				$("body:contains('"+allSets[i].name+"')").each(function(){
+				    var $el = $(this);				    
+				    $el.html( $el.html().replace(re, '<span class="hs-tooltip" style="text-decoration: underline">'+allSets[i].name+'<img src="cards/'+allSets[i].id+'.png" style="position: absolute; display: none"></span>') );
+				    $(".hs-tooltip").mouseover(function(){
+						$('img',this).show().css({'top':mouse.y,'left':mouse.x});
+					}).mouseout(function(){
+						$('img',this).hide();
+					}).mousemove(function(){
+						$('img',this).css({'top':mouse.y,'left':mouse.x});
+					});
+				});	
+			}			
+		});	
 	};
-
 }(jQuery));
