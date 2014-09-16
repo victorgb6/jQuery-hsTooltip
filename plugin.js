@@ -49,7 +49,7 @@
 				    var $el = $(this);				    
 				    $el.html( $el.html().replace(re, '<span class="hs-tooltip" style="text-decoration: underline">'+allSets[i].name+'<img src="cards/'+allSets[i].id+'.png" style="position: absolute; display: none"></span>') );
 				    $(".hs-tooltip").mouseover(function(){
-						$('img',this).show().css({'top':mouse.y,'left':mouse.x});
+						$('img',this).show();
 					}).mouseout(function(){
 						$('img',this).hide();
 					}).mousemove(function(){
