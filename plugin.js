@@ -22,12 +22,9 @@
 */
 (function($) {
 
-	$.hsTooltips = function( options ) {
+	$.hsTooltips = function( language ) {
 
 		// Establish our default settings
-		/*var settings = $.extend({
-			text         : 'Hello, World!',
-		}, options);*/
 		var allSets = {};
 		var mouse = {x: 0, y: 0};
 		/*Getting the mouse position*/
@@ -42,7 +39,7 @@
 		    };
 		});
 		/*cards/'+allSets[i].id+'.png*//*agentIconMale.png*/
-		$.getJSON( "/jQuery-hsTooltip/jQuery-hsTooltip/AllSets.json", function( data ) {
+		$.getJSON( "/jQuery-hsTooltip/jQuery-hsTooltip/AllSets."+language+".json", function( data ) {
 			allSets = data['Basic'];
 			$.merge(allSets, data['Curse of Naxxramas']);
 			$.merge(allSets, data['Expert']);
